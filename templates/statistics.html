@@ -1,0 +1,77 @@
+{% extends "bootstrap_responsive.html" %}
+{% block title %}Raspberry Pi System Statistics{% endblock %}
+{% block body_content %}
+    <style type='text/css'>
+            /* Custom container */
+        .container-narrow {
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .container-narrow > hr {
+            margin: 30px 0;
+        }
+        .hero-unit {
+            padding: 40px;
+            padding-top: 25px;
+        }
+        .shadow	{
+            -webkit-box-shadow: inset 0 15px 15px -20px rgba(0,0,0,0.5);
+            -moz-box-shadow: inset 0 15px 15px -20px rgba(0,0,0,0.5);
+            -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+            -moz-mask-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+            height: 20px;
+            width: 100%;
+            position: relative;
+            content: '';
+            bottom: -12px;
+            left: 0;
+            display: block;
+            border-top: 1px solid rgba(0,0,0,0.3)
+        }
+    </style>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="/">Raspberry Pi System Statistics</a>
+                <p class="navbar-text pull-right">system up for {{ up }}...
+                {% if hdd_status %}
+                    <span class="label label-success">ext hdd mounted</span>
+                {% else %}
+                    <span class="label label-important">ext hdd not mounted!?!</span>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-narrow">
+        <ul class="breadcrumb">
+            <li><i class="icon-user"></i> {{ uptime }}</li>
+        </ul>
+        <div class="hero-unit">
+            <h4>Temperature</h4>
+            <small><i class="icon-fire"></i> {{ temp }}º C</small>
+            <div class="shadow"></div>
+            <h4>Memory Usage</h4>
+            <small><i class="icon-exclamation-sign"></i> {{ memory['free'] }}MB out of {{ memory['total'] }}MB free</small>
+            <div class="progress progress-danger progress-striped">
+                <div class="bar" style="width: {{ memory['percent'] }}%;"></div>
+            </div>
+            <div class="shadow"></div>
+            <h4>Disk Status</h4>
+            <h5>SD Card</h5>
+            <small><i class="icon-hdd"></i> {{ sd['free'] }} gigabytes out of {{ sd['total'] }} gigabytes free</small>
+            <div class="progress progress-info progress-striped">
+                <div class="bar" style="width: {{ sd['percent'] }}%"></div>
+            </div>
+            {% if hdd_status %}
+                <h5>External HDD</h5>
+                <small><i class="icon-hdd"></i> {{ hdd['free'] }} gigabytes out of {{ hdd['total'] }} gigabytes free</small>
+                <div class="progress progress-success progress-striped">
+                    <div class="bar" style="width: {{ hdd['percent'] }}%"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
