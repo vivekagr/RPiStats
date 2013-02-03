@@ -20,4 +20,6 @@ Uses [Flask][flask] framework to serve the page content and [Twitter Bootstrap][
 
 > Remove Flask-Bootstrap dependency and include Bootstrap with the source.
 >
+> Add Youtube video download support.
+>
 > Add more useful metrics to the page.
