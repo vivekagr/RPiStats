@@ -16,13 +16,16 @@ app = Flask(__name__)
 Bootstrap(app)
 app.config['BOOTSTRAP_FONTAWESOME'] = True
 
+
 @app.route('/')
 def index():
     return redirect(url_for('stats'))
 
+
 @app.route('/stats')
 def stats():
     return render_template('statistics.html', **globals())
+
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 
